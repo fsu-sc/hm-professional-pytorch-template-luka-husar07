@@ -1,0 +1,54 @@
+{
+    "name": "Function_Approximation",
+    "n_gpu": 0,
+
+    "arch": {
+        "type": "DenseModel",
+        "args": {
+            "hidden_layers": 2,
+            "neurons_per_layer": 32,
+            "activation_hidden": "relu",
+            "activation_output": "linear"
+        }
+    },
+    "data_loader": {
+        "type": "FunctionDataLoader",
+        "args":{
+            "data_dir": "",
+            "batch_size": 32,
+            "shuffle": true,
+            "validation_split": 0.2,
+            "num_workers": 0,
+            "function": "linear",
+            "n_samples": 1000
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "lr": 0.001,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": "mse_loss",
+    "metrics": [
+        "mean_squared_error", "r_squared", "mean_absolute_error"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 50,
+            "gamma": 0.1
+        }
+    },
+    "trainer": {
+        "epochs": 100,
+        "save_dir": "outputs/",
+        "save_period": 10,
+        "verbosity": 2,
+        "monitor": "min val_loss",
+        "early_stop": 20,
+        "tensorboard": true
+    }
+} 
